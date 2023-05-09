@@ -23,11 +23,14 @@ def main():
     shirt(sys.argv[1], sys.argv[2])
 
 def shirt(a, b):
-    image = Image.open(a)
-    shirt = Image.open("shirt.png")
-    image2 = ImageOps.fit(image, shirt.size, method = 0, bleed = 0.0, centering =(0.5, 0.5))
-    image2.paste(shirt, box = None, mask = shirt)
-    image2.save(b)
+    try:
+        image = Image.open(a)
+        shirt = Image.open("shirt.png")
+        image2 = ImageOps.fit(image, shirt.size)
+        image2.paste(shirt, mask = shirt)
+        image2.save(b)
+    except FileNotFoundError:
+        sys.exit("Invalid input")
 
 
 
